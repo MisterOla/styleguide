@@ -106,12 +106,15 @@ class SampleClass():
         return self.blah
 ```
 
+These were all taken pretty much verbatim from [google's python style guide](http://google-styleguide.googlecode.com/svn/trunk/pyguide.html#Comments).
+
 ## References
 
 - [Code Like a Pythonista: Idiomatic Python](http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html) - Good into to the getchas in python
 - [The Hitchhiker’s Guide to Python](http://docs.python-guide.org/en/latest/) - a current up to date guide on python
 - [Best Practices for Python Scripting](http://cdn.oreillystatic.com/en/assets/1/event/27/Best%20practices%20for%20_scripting_%20with%20Python%203%20Paper.pdf) (pdf) - quick reference of sort
 - [Python Project Howto](http://infinitemonkeycorps.net/docs/pph/) - how to structure a project for publishing
+- [Google Python Style Guide](http://google-styleguide.googlecode.com/svn/trunk/pyguide.html) - One of the few style guides to be explicit in exactly how the doc string for modules and classes should be structured.
 
 
  [PEP8]: http://www.python.org/dev/peps/pep-0008/ "Style Guide for Python Code"
