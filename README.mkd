@@ -1,0 +1,9 @@
+# Style Guide
+
+This is my (Todd Eddy / vrillusions) personal list of guidelines I follow. It's mostly here for my own reference since some things I tend to forget. Even simple things like versioning and if the tag name is 'v1.0.0' or just '1.0.0'.
+
+- [coding](coding.mkd) - General coding guidelines
+- [git](git.mkd) - Git
+- Language Specifics
+    - bash - Bash (tbd)
+    - [python](python.mkd) - Python

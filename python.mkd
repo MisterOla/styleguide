@@ -1,0 +1,117 @@
+# Python
+
+- [PEP8](#pep8)
+- [General conventions)](#general-conventions)
+- [Line wrapping](#line-wrapping)
+- [Private interfaces](#private-interfaces)
+- [Docstrings](#docstrings)
+- [References](#references)
+
+## PEP8
+
+[PEP8 - Style Guide for Python Code][PEP8] is THE guide for programming in python.  Pretty much everything there I adhere to.  The next sections mainly just clarifies certain parts of it.
+
+## General conventions
+
+- Indentation is 4 spaces, no tabs (default recommendation)
+- Remove all trailing spaces including on blank lines
+- Use UTF-8 formatting without the BOM as that just seems to confuse editors
+- Don't use `from modulename import *` unless it's by convention. For example fabric assumes you are going to import *.
+- Use a `if __name__ = '__main__'` block which then calls a main function unless you are 100% sure this module will never be called directly. You can also turn off the top line from the script that's usually there to invoke the python interpreter if it's going to only be imported
+- Prefer using modules in the standard library versus third party.  Primarily to have as few dependencies as possible.  As an example having a config file in yaml format would be really useful since I can store data structures and such, but it's not in the standard library.
+    - Workaround for this is to use a `config.py` that's just a normal python file you include.
+    - Prefer config.ini if there isn't a need for advanced data structures that ini files can't do without some hacking.
+
+## Line wrapping
+
+For continuing long lines I tend to use the second of these to:
+
+```python
+# Aligned with opening delimiter
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+
+# More indentation included to distinguish this from the rest.
+def long_function_name(var_one, var_two, var_three,
+        var_four):
+    print(var_one)
+```
+
+The first way is more popular in other projects but if you're already calling a long function there's going to be a lot of wasted space.  I'd rather just double-indent and gain the vertical space.
+
+## Private interfaces
+
+While python doesn't support a way to declare something is officially public or private. Instead a convention has come up. Anything prefixed with a single underscore should be considered private. Nothing is stopping you from importing it other than you shouldn't.  There's also the option of using two underscores.  This does some mangling of the actual name to avoid any collisions and I personally avoid the double underscore.
+
+## Docstrings
+
+The top file, all functions and all classes should have a docstring (also called a doc block).
+
+Example doc block for top of file:
+
+```python
+"""Nifty Title.
+
+This is a nifty module. Here I would put a longer description wrapped at 80
+characters.
+
+Requirements
+    Python v2.6 or higher: Makes use of several functions introduced in 2.6
+
+Environment Variables
+    LOGLEVEL: overrides the level specified here. Choices are debug, info,
+        warning, error, and critical. (default: 'warning')
+
+"""
+```
+
+Example of a function doc block:
+
+```python
+def sample_def(meh=None):
+    """This is a sample function.
+
+    Long description would go here.
+
+    Args:
+        meh: I guess this would have something here
+
+    Returns:
+        The string 'hello'
+
+    """
+    return 'hello'
+```
+
+Example of a class doc block:
+
+```python
+class SampleClass():
+    """This is a sample class.
+
+    Just illustrating how a docblock would look.
+
+    Attributes:
+        blah: This stores some number of blahs
+
+    """
+    def __init__(self):
+        """Inits SampleClass."""
+        self._log = logging.getLogger(__name__)
+        self.blah = 3
+
+    def get_blah(self):
+        """Returns the value of blah."""
+        self._log.debug('Returning blah')
+        return self.blah
+```
+
+## References
+
+- [Code Like a Pythonista: Idiomatic Python](http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html) - Good into to the getchas in python
+- [The Hitchhiker’s Guide to Python](http://docs.python-guide.org/en/latest/) - a current up to date guide on python
+- [Best Practices for Python Scripting](http://cdn.oreillystatic.com/en/assets/1/event/27/Best%20practices%20for%20_scripting_%20with%20Python%203%20Paper.pdf) (pdf) - quick reference of sort
+- [Python Project Howto](http://infinitemonkeycorps.net/docs/pph/) - how to structure a project for publishing
+
+
+ [PEP8]: http://www.python.org/dev/peps/pep-0008/ "Style Guide for Python Code"

@@ -1,0 +1,14 @@
+# Coding
+
+- [Consistency over convention](#consistency-over-convention)
+- [Versioning and tags](#versioning-and-tags)
+
+## Consistency over convention
+
+This is your standard disclaimer of don't do something just because it's mentioned here. For example if code is using tab indentation and current convention is spaces then it would be best to not just start coding new areas with spaces instead of tabs. Especially with programs like python that could end badly. This also applies to contributions to other projects. If the other project uses 2 spaces while this guide mentions 4 spaces, contributed code should use 2 spaces.
+
+## Versioning and tags
+
+Versioning follows the [Semantic Versioning](http://semver.org) standard.  In short that means the version is 3 digits separated by periods.  For example '1.2.3'  This means all projects start at 0.1.0 and it's still a wild-wild west as far as changes go.  I can make whatever changes I want to the public api and just increment the minor number (the 2 in '0.2.3'). Optionally it may have a pre-release version afterwards. For example any new project will start out with it's version at '0.1.0-dev' to signify I'm developing towards 0.1.0.  Typically `-dev` versions don't have git tags.  In general a tag represents a release of a block of code.  It is possible for there to be release candidates and those are release for feedback.  Those take the form of '0.1.0-rc.1'.
+
+There's a pretty big split in the dev community about whether a tag should have the v prefix or not.  Looking at my tag history you can see I keep alternating between the two. I'm not going to stick not using the v prefix. The main reason for this is in some contexts I still didn't want the prefix. For example variables that contain the version string I wanted to just have the number. But within documentation I did want the prefix. To remove having to think if I need to add the prefix or not I'm just not going to have one.
