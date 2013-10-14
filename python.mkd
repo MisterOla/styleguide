@@ -1,7 +1,7 @@
 # Python
 
 - [PEP8](#pep8)
-- [General conventions)](#general-conventions)
+- [General conventions](#general-conventions)
 - [Line wrapping](#line-wrapping)
 - [Private interfaces](#private-interfaces)
 - [Docstrings](#docstrings)
