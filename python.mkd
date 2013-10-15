@@ -5,6 +5,7 @@
 - [Line wrapping](#line-wrapping)
 - [Private interfaces](#private-interfaces)
 - [Docstrings](#docstrings)
+- [pylint](#pylint)
 - [References](#references)
 
 ## PEP8
@@ -107,6 +108,10 @@ class SampleClass():
 ```
 
 These were all taken pretty much verbatim from [google's python style guide](http://google-styleguide.googlecode.com/svn/trunk/pyguide.html#Comments).
+
+## Pylint
+
+Use [pylint](http://www.pylint.org/) to help find common errors. The only thing that needs modified from a base install is to add `fh` as a valid variable name. To do this add `fh` to the end of `good-names` in your `.pylintrc` file. With default values this makes the final line `good-names=i,j,k,ex,Run,_,fh`.
 
 ## References
 
