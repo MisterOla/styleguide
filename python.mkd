@@ -5,6 +5,7 @@
 - [Line wrapping](#line-wrapping)
 - [Private interfaces](#private-interfaces)
 - [Docstrings](#docstrings)
+- [Logging](#logging)
 - [pylint](#pylint)
 - [References](#references)
 
@@ -108,6 +109,24 @@ class SampleClass():
 ```
 
 These were all taken pretty much verbatim from [google's python style guide](http://google-styleguide.googlecode.com/svn/trunk/pyguide.html#Comments).
+
+## Logging
+
+Logs MUST include a time stamp in ISO8601 format. Suggested format string:
+
+```python
+_LOGFORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+logging.basicConfig(level=logging.WARNING, format=_LOGFORMAT)
+log = logging.getLogger(__name__)
+```
+
+Log levels should follow the same conventions laid out in the [python documentation](http://docs.python.org/2/howto/logging.html#logging-basic-tutorial) but also repeating here. These are in order from most verbose to least. So a log level of `ERROR` would only show `ERROR` and `CRITICAL` log messages:
+
+- **DEBUG** - Information that is only of use to developers and possibly for troubleshooting issues. Should only be enabled during development.
+- **INFO** - Information that may be of use to end users. An example of this is when contacting an external site. At `INFO` level just say "Now contacting (insert just the hostname here)" and then at `DEBUG` level it would change to "calling (full url with request parameters)".
+- **WARNING** - For reporting on items that are not configured properly. Deprecation notices could go to this layer too. If whatever caused the message needs attention but didn't actually prevent anything (the python docs give an example of disk space starting to get low. This is the default log level.
+- **ERROR** - When something did not work (e.g. invalid parameter to a function)
+- **CRITICAL** - A serious error has happened that may cause the program to close. It's analogous to 'fatal' in other logging libraries but `CRITICAL` was chosen since in some situations like a web server where at `CRITICAL` level message may affect a specific connection but server is still running.
 
 ## Pylint
 

@@ -1,6 +1,6 @@
 # Style Guide
 
-This is my (Todd Eddy / vrillusions) personal list of guidelines I follow. It's mostly here for my own reference since some things I tend to forget. Even simple things like versioning and if the tag name is 'v1.0.0' or just '1.0.0'.
+This is a list of guidelines I follow. It's mostly here for my own reference since some things I tend to forget. Even simple things like versioning and if the tag name is 'v1.0.0' or just '1.0.0'. While this is all stuff I've kept in mind, most of the code I've written since late 2013 didn't really put an emphasis on it. As needed I'll go through and clean up older projects.
 
 - [coding](coding.mkd) - General coding guidelines
 - [git](git.mkd) - Git
