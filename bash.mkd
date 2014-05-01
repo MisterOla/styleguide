@@ -1,0 +1,120 @@
+# Bash
+
+- [Introduction](#introduction)
+- [General conventions](#general-conventions)
+- [Comments](#comments)
+- [Constants](#constants)
+- [Variables](#variables)
+- [Set](#set)
+- [Line wrapping](#line-wrapping)
+- [References](#references)
+
+## Introduction
+
+This is still in draft status as of early 2014. It's worth mentioning that some of the conventions given have not been implemented in the years of bash scripts I've done. Thus as with all these conventions, follow what the script currently does vs what it said here.
+
+Also keep in mind that once things start to get even marginally complex you should start looking into other languages. Personal preference is python but any contemporary language is going to be easier to use and more efficient then bash scripts.
+
+## General conventions
+
+- Be consistent with existing code base if older project or change everything at once
+- Indentation is 4 spaces, no tabs
+- Preferable max length is 80 characters, can be longer if improves readability
+- Remove all trailing spaces including on blank lines
+- Use UTF-8 formatting without the BOM as that just seems to confuse editors
+- Prefer built-ins vs external commands
+- Prefer `[[` over `[` or `test`
+- Prefer `readonly` over `declare -r`
+- All scripts should support a `-h` argument to display usage info, even if just to say "See source file" (although that's discouraged).
+
+## Comments
+
+Any informational comments should have a space separating the `#` and the text. Don't have the space if commenting out code
+
+```shell
+# Don't really want to find every file in system
+#find /
+# Just find files ~/bin
+find "${HOME}/bin"
+```
+
+## Constants
+
+Constants should be marked `readonly`.
+
+```shell
+readonly days=15
+readonly first_name='foo'
+readonly date="$(date)"
+```
+
+## Variables
+
+NOTE: Previous scripts have not followed this. Specifically the casing
+
+Variables are lower case separated by underscores when it improves readability. Names should be short but meaningful. Avoid using variable names like `$x`. Variables should always be included within quotes unless 100% certain it will never contain a space. Always use `${}` when calling variables accept if variable name is one character, like `$1`. Example: `echo "${filename}"`.
+
+Use upper case only if it may be overridden by an environment variable.  The proper form in this case is using parameter expansions:
+
+```shell
+# This will set VERBOSE to the environment variable VERBOSE if set or will set it to 'false'
+VERBOSE=${VERBOSE:-"false"}
+```
+
+## Set
+
+At a minimum all scripts should start with both `set -e` (exit on error) and `set -u` (exit if reference a variable that isn't set). These should be as commands in script and not added to the shebang at the top of the file. If invoked via `bash ./script_name` then those options are ignored
+
+```shell
+#!/bin/bash
+#
+# This is an example of a good header for a bash script
+
+set -e
+set -u
+
+echo "This will fail if no arguments were specified: $1"
+echo "Comment above line and this will work: ${1:-}"
+echo "As will this way: ${1:+$1}"
+```
+
+This is what not to do
+
+```shell
+#!/bin/bash -e -u
+#
+# Don't do it this way
+
+echo "This will work if called `bash script_name`: $1"
+echo "These two ways still work as well, of course: ${1:-}"
+echo "And this way: ${1:+"$1"}"
+```
+
+## Line wrapping
+
+If the command fits on one line then it should be one line. If it doesn't then split on each individual command segment.
+
+```shell
+# This fits on one line, so keep it that way
+grep "foo" /var/log/syslog | grep "bar" | grep "baz" >result.txt
+
+# The full command doesn't fit on one line so break it up at each pipe
+grep "foo" /var/log/syslog
+    | grep "some longer words"
+    | tr -d "\n"
+    | sed -e 's/foo/bar/'
+    > result.txt
+
+# do not do this. makes it more difficult to add more commands
+grep "foo" /var/log/syslog | grep "some longer words" | tr -d "\n"
+    | sed -e 's/foo/bar/' >result.txt
+```
+
+
+## References
+
+- http://lug.fh-swf.de/vim/vim-bash/StyleGuideShell.en.pdf
+- http://wiki.bash-hackers.org/scripting/style
+- http://www.inquisitor.ru/doc/coding-style-shell.html - note that a lot of the ones mentioned here should be avoided
+- http://mywiki.wooledge.org/BashGuide/Practices
+- http://google-styleguide.googlecode.com/svn/trunk/shell.xml

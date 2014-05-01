@@ -17,7 +17,7 @@
 
 ## General conventions
 
-- Indentation is 4 spaces, no tabs (default recommendation)
+- Indentation is 4 spaces, no tabs
 - Remove all trailing spaces including on blank lines
 - Use UTF-8 formatting without the BOM as that just seems to confuse editors
 - Don't use `from modulename import *` unless it's by convention. For example fabric assumes you are going to import *.
@@ -25,6 +25,7 @@
 - Prefer using modules in the standard library versus third party.  Primarily to have as few dependencies as possible.  As an example having a config file in yaml format would be really useful since I can store data structures and such, but it's not in the standard library.
     - Workaround for this is to use a `config.py` that's just a normal python file you include.
     - Prefer config.ini if there isn't a need for advanced data structures that ini files can't do without some hacking.
+- 'Constants' (like [Private interfaces](#private-interfaces) this is by convention only) should be at top of file and all caps. The use of script wide constants are generally discouraged. If you have options that are used in several other functions then look in to making a class.
 
 ## Python version support
 
@@ -63,6 +64,8 @@ The first way is more popular in other projects but if you're already calling a 
 ## Private interfaces
 
 While python doesn't support a way to declare something is officially public or private. Instead a convention has come up. Anything prefixed with a single underscore should be considered private. Nothing is stopping you from importing it other than you shouldn't.  There's also the option of using two underscores.  This does some mangling of the actual name to avoid any collisions and I personally avoid the double underscore.
+
+Prefer making objects private vs public. You can always make a private object public in the future but making a public object private could cause issues.
 
 ## Docstrings
 
