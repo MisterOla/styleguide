@@ -7,3 +7,7 @@ This is a list of guidelines I follow. It's mostly here for my own reference sin
 - Language Specifics
     - [bash](bash.mkd) - Bash
     - [python](python.mkd) - Python
+
+# License
+
+This repo is licensed under [CC0 1.0 Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/).
