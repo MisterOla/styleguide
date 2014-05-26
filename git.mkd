@@ -1,10 +1,32 @@
 # Git
 
+- [Basic work flow](#basic-work-flow)
 - [Initial commit](#initial-commit)
 - [Logically sized commits](#logically-sized-commits)
 - [Separate commit for format changes](#separate-commit-for-format-changes)
 - [Commit message format](#commit-message-format)
 - [Rewriting history](#rewriting-history)
+- [Pull requests](#pull-requests)
+
+## Basic work flow
+
+- Development usually happens on a feature branch. Typically this will only ever live as a local branch but sometimes is pushed to remote.
+- Feature branches are assumed to be volatile, meaning commit history within that branch may be altered and force push back to server. Exceptions include long life branches like a stable or release-1.0 branch.
+- Rebase from remote/master to local master, rebase master to feature branch, merge from feature branch to master. This reduces all those "merge head of master" messages.
+
+### Merging a feature branch process
+
+```bash
+git checkout master
+git pull --rebase
+git checkout feature1
+git rebase master
+git checkout master
+git merge feature1 --ff-only
+git push
+```
+
+This process updates local master branch via rebase (since any local commits that need to rebase shouldn't have been pushed to server). Then rebase master in to feature1 (this means feature1's commit history will be changed, 99% of the time these are local branches though). And then merge feature1 in to master. At this point the merge should be a fast forward so no merge commit will be needed.
 
 ## Initial commit
 
@@ -46,3 +68,35 @@ References can be placed at the bottom of the commit message.  For example if yo
 If the revision has been pushed to a central repo or shared with someone else, don't touch it. Sometimes it may be acceptable to rebase a feature branch in case there are several minor changes that can be squashed into a single commit.  To do a rebase on only the commits that haven't been pushed to origin can be accomplished with `git rebase -i origin/master`.
 
 Tags that have been published should NEVER be modified.  While moving the commit a tag points to is a valid operation it's generally assumed that a tag identifies a specific commit and doesn't.  If you see a use case for a tag that changes what commit it points to, you should be using branches.  The old tag may be removed but keep in mind that it may have been cached or pulled from someone in the interim. They will see that tag even after it's deleted on origin.
+
+## Pull requests
+
+For contributing to a project will usually be in the form of a pull request. Basic workflow for this:
+
+```bash
+# fork project on github
+git clone git@github.com:MyUser/ProjectName
+cd ProjectName
+git remote add upstream https://github.com/OriginalUser/ProjectName
+git fetch upstream
+git checkout -b fix_whatever
+# make changes and commit it
+git push origin fix_whatever
+# submit pull request
+```
+
+If it takes a while for the author to get to it you may be asked to rebase/merge your changes with current master:
+
+```bash
+git fetch upstream
+# if you use merge or rebase here go by that developer's polices.
+git checkout feature1
+git rebase upstream/master
+git push origin fix_whatever
+# At this point you can leave a comment that it's been done
+git checkout master
+git merge upstream/master
+git push
+```
+
+The key thing here is that fix branch should be as specific as possible. Pull requests are all or nothing and it's annoying if like 90% of the changes fix whatever and then the other 10% is completely unrelated. Once you confirmed that the pull request is in you can delete the `fix_whatever` branch from your repo and probably even remove the fork if you don't plan to make any more changes.

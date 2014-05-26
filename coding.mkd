@@ -3,6 +3,7 @@
 - [Consistency over convention](#consistency-over-convention)
 - [Comments](#comments)
 - [Versioning and tags](#versioning-and-tags)
+- [Licensing](#licensing)
 
 ## Consistency over convention
 
@@ -21,3 +22,11 @@ Keywords like `TODO` are acceptable. They should be used sparingly. If you're wr
 Versioning follows the [Semantic Versioning](http://semver.org) guide.  In short that means the version is 3 digits separated by periods.  For example '1.2.3'  This means all projects start at 0.1.0 and it's still a wild-wild west as far as changes go.  I can make whatever changes I want to the public api and just increment the minor number (the 2 in '0.2.3'). Optionally it may have a pre-release version afterwards. For example any new project will start out with it's version at '0.1.0-dev' to signify I'm developing towards 0.1.0.  Typically `-dev` versions don't have git tags.  In general a tag represents a release of a block of code.  It is possible for there to be release candidates and those are release for feedback.  Those take the form of '0.1.0-rc.1'.
 
 There's a pretty big split in the dev community about whether a tag should have the v prefix or not.  Looking at my tag history you can see I keep alternating between the two. I'm now going to stick to not using the v prefix. The main reason for this is in some contexts I still didn't want the prefix. For example variables that contain the version string I wanted to just have the number. But within documentation I did want the prefix. To remove having to think if I need to add the prefix or not I'm just not going to have one.
+
+## Licensing
+
+For the most part I use two different licenses depending on how complex the project is.
+
+For projects that aren't that complicated or just a collection of small scripts I'll just dedicate it to public domain. Lawyers tend to frown on public domain because it's not technically a license or something. Chances are if I'm saying it's public domain then it's probably not even complex enough to be licensed. Closest official method of declaring something public domain is [Creative Commons CC0](https://creativecommons.org/publicdomain/zero/1.0/). But the size of the license can be longer than some of the code it applies to. I tend to use the text from [unlicense](http://unlicense.org/) instead.
+
+For projects that are more project like. Meaning they are dedicated to a single thing and may actualy be useful to someone I'll license under the [MIT License](http://opensource.org/licenses/MIT). This is about as close to public domain you can get while still making the lawyers happy. If for some reason I was contacted about a project that is public domain I'd license it to them under the MIT license. I may even consider doing a dual license where you can choose between public domain or MIT if in your region you can't legally dedicated something to public domain.
