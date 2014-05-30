@@ -54,12 +54,40 @@ foo = long_function_name(var_one, var_two,
                          var_three, var_four)
 
 # More indentation included to distinguish this from the rest.
-def long_function_name(var_one, var_two, var_three,
+def long_function_name(
+        var_one, var_two, var_three,
         var_four):
     print(var_one)
 ```
 
-The first way is more popular in other projects but if you're already calling a long function there's going to be a lot of wasted space.  I'd rather just double-indent and gain the vertical space.
+The first way is more popular in other projects but if you're already calling a long function there's going to be a lot of wasted space.  I'd rather just double-indent and gain the horizontal space.  Note that the use of second form, called a hanging indent (even though it's actually the reverse or real meaning) varies from the first in that the first line should have nothing after the `(`. For example:
+
+```python
+# Bad
+def long_function_name(var_one, var_two, var_three,
+        var_four):
+    print(var_one)
+
+# Good
+def long_function_name(
+        var_one, var_two, var_three,
+        var_four):
+    print(var_one)
+
+# Also only double indent if needed. For example this is correct:
+def hello_world():
+    print(
+        'this is a long sentence but at least '
+        'the indentation is correct.')
+    print('blah')
+
+# This is not
+def hello_world():
+    print(
+            'The double indent should not be here'
+            'as it makes Guido cry')
+    print('blah')
+```
 
 ## Private interfaces
 
