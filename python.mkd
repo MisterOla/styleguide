@@ -5,10 +5,12 @@
 - [Python version support](#python-version-support)
     - [Python version 2 and version 3](#python-version-2-and-version-3)
 - [Line wrapping](#line-wrapping)
+- [Data structures](#data-structures)
 - [Private interfaces](#private-interfaces)
 - [Docstrings](#docstrings)
 - [Logging](#logging)
 - [pylint](#pylint)
+- [flake8](#flake8)
 - [References](#references)
 
 ## PEP8
@@ -18,6 +20,7 @@
 ## General conventions
 
 - Indentation is 4 spaces, no tabs
+- Target width is < 80 characters. Going beyond that is fine but be prepared for a lot of errors when running lint checkers.
 - Remove all trailing spaces including on blank lines
 - Use UTF-8 formatting without the BOM as that just seems to confuse editors
 - Don't use `from modulename import *` unless it's by convention. For example fabric assumes you are going to import *.
@@ -29,7 +32,8 @@
 
 ## Python version support
 
-Minimum version should be 2.6. This is because CentOS 6 uses 2.6. If this code is running on just about anything else (Ubuntu, Debian, OS X) then can use 2.7.
+- Python 2.x - v2.6+ (needed because CentOS 6 has v2.6)
+- Python 3.x - v3.3+ (added several more options to make v2 code run in v3)
 
 ### Python version 2 and version 3
 
@@ -40,7 +44,7 @@ from __future__ import (absolute_import, print_function, unicode_literals,
                         division)
 ```
 
-Both `print_function` and `unicode_literals` were added in 2.6 thus this line would break 2.5 and older.
+Both `print_function` and `unicode_literals` were added in 2.6 thus this line would break 2.5 and older. If like me having to wrap the line to get it under 80 characters bothers you, you can remove `print_function` as that isn't required in 2.6. This is at the expense that it won't complain if you accidentally do a `print 'foo'` somewhere. Also division is only really needed when you expect a float returned on division. I still usually leave everything there in the hopes I'll eventually get used to it.
 
 There are a couple good resources to help with writing code that's both compatible in 2 and 3. See [Porting to Python 3][Port2Python] and [python3porting.com][python3porting].
 
@@ -75,9 +79,10 @@ def long_function_name(
     print(var_one)
 
 # Also only double indent if needed. For example this is correct:
-def hello_world():
+if somevar = some_really_long_function_name_here()
+        and hello_world():
     print(
-        'this is a long sentence but at least '
+        'this is not a long sentence but at least '
         'the indentation is correct.')
     print('blah')
 
@@ -87,6 +92,30 @@ def hello_world():
             'The double indent should not be here'
             'as it makes Guido cry')
     print('blah')
+```
+
+## Data structures
+
+When a data structure spans multiple lines, format it as a hanging indent with only one item per line.
+
+```python
+# Good
+print('blah')
+some_words = (
+        'word1',
+        'word2',
+        'word3',
+    )
+print(some_words)
+
+# Bad - multiple items on a line and not hanging indent
+print('blah')
+some_words = (
+    'word1','this should be on separate line',
+    'word2',
+    'word3',
+)
+print(some_words)
 ```
 
 ## Private interfaces
@@ -182,6 +211,26 @@ Log levels should follow the same conventions laid out in the [python documentat
 
 Use [pylint](http://www.pylint.org/) to help find common errors. The only thing that needs modified from a base install is to add `fh` as a valid variable name. To do this add `fh` to the end of `good-names` in your `.pylintrc` file. With default values this makes the final line `good-names=i,j,k,ex,Run,_,fh`.
 
+## Flake8
+
+Lately I've preferred [flake8][] over [pylint][]. Flake8 combines `pep8`, `pyflakes`, and McCabe complexity tests. There are additionally plugins available as well. Configuration for this is done by creating `tox.ini` with the following info:
+
+```
+[flake8]
+# E123 requires opening and closing bracket (eg multi-line lists) to be at same
+#   indentation. The opposite of this, E133, tests that it follows the same
+#   rules as a hanging indent
+# E226 tests for `1 + 1` instead of `1+1` (not in pep8 and I do the 'wrong' way
+#   all the time)
+# E265 requires any comment blocks to begin with '# ' (note the space).
+#   Typically I don't add the space if temporarily commenting out code
+ignore = E123,E226,E265
+# This is the default
+max-line-length = 79
+# Unsure what default is but the recommended max is 10
+max-complexity = 10
+```
+
 ## References
 
 - [Style Guide for Python Code (PEP0008)][PEP8]
@@ -197,3 +246,5 @@ Use [pylint](http://www.pylint.org/) to help find common errors. The only thing 
  [PEP8]: http://www.python.org/dev/peps/pep-0008/ "Style Guide for Python Code"
  [Port2Python]: http://docs.pythonsprints.com/python3_porting/index.html "Porting to Python 3"
  [python3porting]: http://python3porting.com/ "Python 3 Porting"
+ [pylint]: http://www.pylint.org/ "Pylint"
+ [flake8]: http://flake8.readthedocs.org/ "Flake8"
