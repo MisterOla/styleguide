@@ -11,6 +11,7 @@
 - [Logging](#logging)
 - [pylint](#pylint)
 - [flake8](#flake8)
+- [Overall format](#overall-format)
 - [References](#references)
 
 ## PEP8
@@ -229,6 +230,37 @@ ignore = E123,E226,E265
 max-line-length = 79
 # Unsure what default is but the recommended max is 10
 max-complexity = 10
+```
+
+## Overall format
+
+On executable files use `#!/usr/bin/env python` for python 2 and `#!/usr/bin/env python3` if something is specific to that version.  Note this may change in the future as python 3 becomes more popular.  Non executable files may omit this line.
+
+Next line is `# -*- coding: utf-8 -*-`. Previously I would use the vi form of specifying text encoding, since that's the only editor I use.  The thing is this isn't for your editor which should already be set to utf-8.  This is for python to know that you have specifically said this file is utf-8.  Without this in python 2 the file will be read as ascii format.  In python 3 it defaults to utf-8.
+
+A very minimal template follows:
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""A one line description should go here.
+
+Then a longer description would go here.
+"""
+from __future__ import (absolute_import, print_function, unicode_literals,
+                        division)
+import sys
+
+
+def main(argv=None):
+    """This is the main function."""
+    if argv is None:
+        argv = sys.argv
+    print("Hello world")
+
+
+if __name__ == "__main__":
+    sys.exit(main())
 ```
 
 ## References
