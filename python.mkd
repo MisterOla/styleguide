@@ -4,6 +4,7 @@
 - [General conventions](#general-conventions)
 - [Python version support](#python-version-support)
     - [Python version 2 and version 3](#python-version-2-and-version-3)
+    - [Default version in OS](#default-version-in-os)
 - [Line wrapping](#line-wrapping)
 - [Data structures](#data-structures)
 - [Private interfaces](#private-interfaces)
@@ -48,6 +49,19 @@ from __future__ import (absolute_import, print_function, unicode_literals,
 Both `print_function` and `unicode_literals` were added in 2.6 thus this line would break 2.5 and older. If like me having to wrap the line to get it under 80 characters bothers you, you can remove `print_function` as that isn't required in 2.6. This is at the expense that it won't complain if you accidentally do a `print 'foo'` somewhere. Also division is only really needed when you expect a float returned on division. I still usually leave everything there in the hopes I'll eventually get used to it.
 
 There are a couple good resources to help with writing code that's both compatible in 2 and 3. See [Porting to Python 3][Port2Python] and [python3porting.com][python3porting].
+
+Will likely want to make use of [pyenv](https://github.com/yyuu/pyenv) and see my fork of [pyenv-installer](https://github.com/vrillusions/pyenv-installer).
+
+### Default version in OS
+
+Table of various operating systems and what versions of python they come with
+
+| OS           | Python 2          | Python 3         |
+| ------------ | ----------------- | ---------------- |
+| CentOS 6.8   | 2.6.6             | n/a              |
+| CentOS 7.2   | 2.7.5             | 3.4.5 (via EPEL) |
+| Ubuntu 14.04 | 2.7.6             | 3.4.3            |
+| Ubutnu 16.04 | 2.7.12 (optional) | 3.5.2            |
 
 ## Line wrapping
 
