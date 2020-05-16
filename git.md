@@ -2,6 +2,7 @@
 
 - [Basic work flow](#basic-work-flow)
 - [Initial commit](#initial-commit)
+- [Initial repo layout](#initial-repo-layout)
 - [Logically sized commits](#logically-sized-commits)
 - [Separate commit for format changes](#separate-commit-for-format-changes)
 - [Commit message format](#commit-message-format)
@@ -43,6 +44,10 @@ git commit -m "Initial commit."
 
 You could also just add a readme file but again it should be blank. So `touch README.mkd`. The reason the single line is added above is for clarity in case nothing is ever added to it. It's assumed the readme will be changed in the very next commit to something useful.
 
+## Initial repo layout
+
+See my [template repo](https://github.com/vrillusions/template-repo) for what the initial repo looks like.
+
 ## Logically sized commits
 
 Each commit should contain a logical amount of work.  Work shouldn't be piled up for days and then all added in a single commit.  Commands like cherry-pick work at the commit level.  Trying to cherry-pick a large commit would be quite annoying.  Typical fix for such an issue is to just manually copy over the changes you need and just reference the commit you took it from.
@@ -56,6 +61,24 @@ Going along with this, don't ever rebase a formatting change commit with a code 
 ## Commit message format
 
 Overall formatting follows the [50/72](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) format. This means the initial line, commonly called the subject, should be 50 characters or less.  This isn't a hard number to me so if it's 55 or 60 characters long, that's fine.  While it should be capitalized, don't end with punctuation.  Below that is a blank line and then follows a longer description of the commit. At the bottom can contain keywords that are of use to various ticket managers and such.  I'll deviate from this in that I use an asterisk for lists and don't have a blank line between each one.  The body should also have hard wraps at around 73 characters. Several git commands don't wrap text around so to see a message you have to scroll sideways.
+
+Format commit messages per [conventional commits](https://www.conventionalcommits.org) spec.  This is a summary:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+The spec places emphasis on use of `fix:` and `feat:` and `BREAKING CHANGE` types.  My implementation is more loose.  The `type` can be anything that defines what the commit covers.  An example from my [dotfiles](https://github.com/vrillusions/dotfiles) repo:
+
+```
+vim: Add bracketed-paste plugin
+```
+
+The correct format is `feat(vim): Add bracketed-paste plugin` as per spec.  As long as it's short and too the point it's good.
 
 Commit messages should be in the present tense. So "Fix contact email" and not "Fixed contact email" A way to imagine this is the commit should say what will happen when update to that commit. Reason for this is all of git's commands like merge and revert use present tense.
 

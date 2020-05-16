@@ -32,7 +32,7 @@ Also keep in mind that once things start to get even marginally complex you shou
 Any informational comments should have a space separating the `#` and the text. Don't have the space if commenting out code
 
 ```shell
-# Don't really want to find every file in system
+# Don't want to find every file in system
 #find /
 # Just find files ~/bin
 find "${HOME}/bin"
@@ -40,7 +40,7 @@ find "${HOME}/bin"
 
 ## Constants
 
-Constants should be marked `readonly`.
+Mark constants as `readonly`.
 
 ```shell
 readonly days=15
@@ -63,7 +63,7 @@ VERBOSE=${VERBOSE:-"false"}
 
 ## Set
 
-At a minimum all scripts should start with both `set -e` (exit on error) and `set -u` (exit if reference a variable that isn't set). These should be as commands in script and not added to the shebang at the top of the file. If invoked via `bash ./script_name` then those options are ignored
+At a minimum all scripts should start with both `set -e` (exit on error) and `set -u` (exit if reference a variable that isn't set). These should be as commands in script and not added to the shebang at the top of the file. This is because if invoked via `bash ./script_name` then bash will ignore those options.
 
 ```shell
 #!/bin/bash
